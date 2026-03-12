@@ -242,8 +242,12 @@ def simplify_param(param: dict) -> dict:
     }
     if param.get("options"):
         p["options"] = [opt["value"] for opt in param["options"]]
-    if param.get("defaultValue") is not None and param["defaultValue"] != "":
-        p["default"] = param["defaultValue"]
+    default_val = param.get("defaultValue")
+    if default_val is not None and default_val != "":
+        if isinstance(default_val, str) and ("Rh-Comfy-Auth=" in default_val or "Rh-Identify=" in default_val):
+            pass
+        else:
+            p["default"] = default_val
     if param.get("multipleInputs"):
         p["multiple"] = True
         if param.get("maxInputNum"):

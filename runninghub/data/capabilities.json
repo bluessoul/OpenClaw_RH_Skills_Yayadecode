@@ -430,7 +430,6 @@
           "key": "imageUrls",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=89c3280d693057d6a2e9876e0b1f862c99786d9111f636a7b91b1ed39acc6fc1.png&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiJhMGUxNDUwNjNkYTE3NzVkMzBiNzM2NzE0NTMyZWI3YSIsInNpZ25FeHBpcmUiOjE3NzEzMjkzNDI4ODUsInRzIjoxNzcwNzI0NTQyODg1LCJzaWduIjoiNTM5YjhkMjEzOWQ1ZTA1MmY2OTcxNjk2YmFkY2JjMDYifQ==&Rh-Identify=a0e145063da1775d30b736714532eb7a&rand=0.8496984178773729",
           "maxSizeMB": 10
         }
       ]
@@ -474,7 +473,6 @@
           "key": "imageUrls",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=174ba2c54b8af1fdd5a01370049dd6407a693d8b05b4717079698e87680e038e.png&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzI3NjM5NDg5OTQsInRzIjoxNzcyMTU5MTQ4OTk0LCJzaWduIjoiNjAxNWY0MjI2NzI2Yzk0YTFkOTExNjg2NGRkZmU2ZTAifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.8958046627705756",
           "multiple": true,
           "maxCount": 10,
           "maxSizeMB": 10
@@ -1050,7 +1048,6 @@
           "key": "imageUrls",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=035b95c2ce2cf2cf02ba1f26b9eca593096c23d8bf49003fd0584fe87d404d2f.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzI4NzQyNTUzMTAsInRzIjoxNzcyMjY5NDU1MzEwLCJzaWduIjoiZWJkODVlYmY2ZTRlMjRiNzJlNGQ4MzA5YjgxMTA3OGEifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.946825154000992",
           "multiple": true,
           "maxCount": 14,
           "maxSizeMB": 10
@@ -1286,7 +1283,6 @@
           "key": "imageUrl",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=2c7aacf2370c7d86c72623d76a370c9bf22f6511b37cf6d743451d7648696041.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzEyMTA2OTY5MzYsInRzIjoxNzcwNjA1ODk2OTM2LCJzaWduIjoiMWE0ZGM0OGVhYmU5YTM5N2NiZTBmMTI2NzZkNWM0NmUifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.7666587484437078",
           "maxSizeMB": 30
         }
       ]
@@ -1597,7 +1593,6 @@
           "key": "firstImageUrl",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=6ea666eb43d1e867e9d31b26aa16fed41e77a2387fea0d0c330c250df47344ee.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzA4Nzk1NjgzNDUsInRzIjoxNzcwMjc0NzY4MzQ1LCJzaWduIjoiNWY0OWUyMzBmNjM0NTViOGZhZWM5NzQzMDYzMjIzOWYifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.7161105046578343",
           "maxSizeMB": 50
         },
         {
@@ -1672,14 +1667,12 @@
           "key": "firstImageUrl",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=92cb39af79424185dce6016ea654eee1f0e22091a0990afd6b293707719bff86.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzA4OTA0Mzk0NDYsInRzIjoxNzcwMjg1NjM5NDQ2LCJzaWduIjoiNzM4MjQ5NjYxY2YwMGZjMzhhOThjNzRkMzU0ZmExZTEifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.9580433249908384",
           "maxSizeMB": 50
         },
         {
           "key": "lastImageUrl",
           "type": "IMAGE",
           "required": false,
-          "default": "https://www.runninghub.cn/view?filename=5ba17f8245b07b3ebc4a3d69d77dd953077e04dad1c01f94150886778a250c12.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzA4OTA0Mzk0NDYsInRzIjoxNzcwMjg1NjM5NDQ2LCJzaWduIjoiNzM4MjQ5NjYxY2YwMGZjMzhhOThjNzRkMzU0ZmExZTEifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.4748683756172115",
           "maxSizeMB": 50
         },
         {
@@ -2065,7 +2058,6 @@
           "key": "imageUrl",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=c4a64598a584b1e5d1a26168332bd70646b9c5eaacfee55eecaf5164b7e96974.png&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3Njg5MTc5OTAwODksInRzIjoxNzY4MzEzMTkwMDg5LCJzaWduIjoiYTdkMTk1NDM4MThiMTUzOTQwNWYzZDNiZTA1OGE0YzAifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.14389186423037004",
           "maxSizeMB": 10
         },
         {
@@ -2334,7 +2326,6 @@
           "key": "imageUrls",
           "type": "IMAGE",
           "required": false,
-          "default": "https://www.runninghub.cn/view?filename=1c35849fb2547490f25c08dfecb2dbc587e720a4698eca9a4643c2a654d5c59d.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzA5OTk0NDgwNTYsInRzIjoxNzcwMzk0NjQ4MDU2LCJzaWduIjoiNTNlY2U4YTY5OWRmMjA0OTE4YjE4NDVkMDFlNTU5OWEifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.79992383645995",
           "multiple": true,
           "maxCount": 1,
           "maxSizeMB": 10
@@ -2385,7 +2376,6 @@
           "key": "imageUrl",
           "type": "IMAGE",
           "required": false,
-          "default": "https://www.runninghub.cn/view?filename=6b05df1302072b51fabe7aee9ab3fe39508a7ca51629768ab521a05eaf93bbf9.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzMwMjg5MTYzNzEsInRzIjoxNzcyNDI0MTE2MzcxLCJzaWduIjoiZGZkZDhjMTdhNDA4ZmYzYTI5NWNjYzA1YjhlNDhhZTYifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.9413883407292518",
           "maxSizeMB": 10
         },
         {
@@ -3382,7 +3372,6 @@
           "key": "firstImageUrl",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=861f7549d2e27505de527e491371bf87475d5a76177ad9c8aae2d1ddf9aa4842.png&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzAzNTUwMjQwMTMsInRzIjoxNzY5NzUwMjI0MDEzLCJzaWduIjoiMWZlY2Q0NWVmZmFjYWFjY2I0MTcyYmIzM2Q1MjdmNjEifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.1336447606892428",
           "maxSizeMB": 20
         },
         {
@@ -3439,7 +3428,6 @@
           "key": "imageUrl",
           "type": "IMAGE",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=7226c36bd0532c86b6f22780a6bc8e603b81b56e8ba83dd6411fcaced2228b84.png&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3Njg5MTAyODM5MTksInRzIjoxNzY4MzA1NDgzOTE5LCJzaWduIjoiZTdhYThjMWU5ZjcxMWM5ZjIyMjA2NWYxNjQ1MTM2NmIifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.23897629876295323",
           "maxSizeMB": 10
         },
         {
@@ -4791,14 +4779,12 @@
           "key": "videoUrl",
           "type": "VIDEO",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=27441819c3a0aac4150ade4eb4d2e1aa1ce34fda0580839fc6bee4240954aa5d.mp4&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzEwNTE3NDYyMDcsInRzIjoxNzcwNDQ2OTQ2MjA3LCJzaWduIjoiM2Q0NTczNTUzMmUyNGJmNjczMzk5NjBmNDliNGJkYTMifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.8032385821652667",
           "maxSizeMB": 50
         },
         {
           "key": "imageUrls",
           "type": "IMAGE",
           "required": false,
-          "default": "https://www.runninghub.cn/view?filename=2ddabe87fbbc255fbfd176c49c7660eb45adf61b38f6e554cfe5944192bd2f86.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzEwNTE3NDYyMDcsInRzIjoxNzcwNDQ2OTQ2MjA3LCJzaWduIjoiM2Q0NTczNTUzMmUyNGJmNjczMzk5NjBmNDliNGJkYTMifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.4817534481980411",
           "multiple": true,
           "maxCount": 7,
           "maxSizeMB": 50
@@ -4859,14 +4845,12 @@
           "key": "videoUrl",
           "type": "VIDEO",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=e0d96e940fe24a2381b2e5f5eb2fe45dcb90bd40ea253f47b2902b1f0d929486.mp4&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzEwNjg4Njg2NTksInRzIjoxNzcwNDY0MDY4NjU5LCJzaWduIjoiMDM3YThhMjU0MWJhN2M5Y2IwYmU3MGJjOWRhOTUwM2QifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.3217910824967488",
           "maxSizeMB": 50
         },
         {
           "key": "imageUrls",
           "type": "IMAGE",
           "required": false,
-          "default": "https://www.runninghub.cn/view?filename=c07e37eb45b827c8b0b6b2c7428ef202b9ab70613845ddf66b4a9921b40ba250.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzEwNjgxNzU3NTcsInRzIjoxNzcwNDYzMzc1NzU3LCJzaWduIjoiYmU0OTljOGVkZDA3YmFkODc1ZGY4Nzc3NDIwMzhlNTUifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.9645205288406946",
           "multiple": true,
           "maxCount": 7,
           "maxSizeMB": 50
@@ -9258,7 +9242,6 @@
           "key": "videoUrl",
           "type": "VIDEO",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=ae4f3202c15cee0fc7a560dae143206ea561c7feb423759dbdbbfe291922ec6c.mp4&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzMwMzM3MTcyODQsInRzIjoxNzcyNDI4OTE3Mjg0LCJzaWduIjoiNjc4MDM1MTdiMjFjZThmMmI4MmZkNjJjY2I5MGE3ODgifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.3961472487197105",
           "maxSizeMB": 50
         },
         {
@@ -9296,7 +9279,6 @@
           "key": "videoUrl",
           "type": "VIDEO",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=b7e0383a81823b42527dd226d3969676a21173c76257a3e7745e68c95aaf79c4.mp4&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzE1ODU3ODkwODAsInRzIjoxNzcwOTgwOTg5MDgwLCJzaWduIjoiNTkzYzQwYWE0ODE1NGVmYTViZWExNTQ1ODM0ZThiMjgifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.9906318620735289",
           "maxSizeMB": 50
         },
         {
@@ -9338,14 +9320,12 @@
           "key": "videoUrl",
           "type": "VIDEO",
           "required": true,
-          "default": "https://www.runninghub.cn/view?filename=7fae6a6a5dfe4b7e3ddcb71a507d6ea51e9ef73edd38fc37e723c76407e1e460.mp4&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzE1ODQxNjE4MjUsInRzIjoxNzcwOTc5MzYxODI1LCJzaWduIjoiMzkxYmRiYjA3YmUzYTBiZGM5NjZkMzEwYjBkYTNhZjYifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.5620407332010252",
           "maxSizeMB": 50
         },
         {
           "key": "imageUrls",
           "type": "IMAGE",
           "required": false,
-          "default": "https://www.runninghub.cn/view?filename=9439fda69964e106c40c3b5977acf88570ac36214f2a4033d01fe5f5c4d7f235.jpg&type=input&subfolder=&Rh-Comfy-Auth=eyJ1c2VySWQiOiIzZjY1MTNlNWEwNjY1N2I4OGYyNjU5NTEzYmU3ZDM0YyIsInNpZ25FeHBpcmUiOjE3NzE1ODQxNjE4MjUsInRzIjoxNzcwOTc5MzYxODI1LCJzaWduIjoiMzkxYmRiYjA3YmUzYTBiZGM5NjZkMzEwYjBkYTNhZjYifQ==&Rh-Identify=3f6513e5a06657b88f2659513be7d34c&rand=0.23302545629278448",
           "multiple": true,
           "maxCount": 4,
           "maxSizeMB": 50
