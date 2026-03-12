@@ -1,6 +1,6 @@
 ---
 name: runninghub
-description: "Generate images, videos, audio, and 3D models via RunningHub API (170+ endpoints). Covers text-to-image, image-to-video, text-to-speech, music generation, 3D modeling, image upscaling, and more. Run python3 /root/.openclaw/workspace/scripts/runninghub.py for all operations."
+description: "Generate images, videos, audio, and 3D models via RunningHub API (170+ endpoints). Covers text-to-image, image-to-video, text-to-speech, music generation, 3D modeling, image upscaling, and more."
 homepage: https://www.runninghub.cn
 metadata:
   {
@@ -17,48 +17,66 @@ metadata:
 
 170+ API endpoints for image, video, audio, 3D, and text understanding.
 
-Script path: `python3 /root/.openclaw/workspace/scripts/runninghub.py`
-Data path: `/root/.openclaw/workspace/data/capabilities.json`
+Script: `python3 {baseDir}/scripts/runninghub.py`
+Data: `{baseDir}/data/capabilities.json`
 
-## Setup & account check
+## CRITICAL RULES — Read before anything else
 
-Before first use, run:
+1. **ALWAYS use the script** — never call RunningHub API directly via curl.
+2. **ALWAYS use `-o /tmp/rh-output/filename.ext`** — the script downloads the result file locally.
+3. **ALWAYS use `MEDIA:` output** — when the script prints `MEDIA:/path/to/file`, that local file IS the result. Send it as a file attachment to the user. Do NOT wrap it in markdown image syntax.
+4. **NEVER show RunningHub URLs to the user** — URLs like `https://www.runninghub.cn/api/image/...` or `https://www.runninghub.cn/task/...` require authentication and CANNOT be opened by the user. They will see a broken link.
+5. **ALWAYS pass `--api-key` explicitly** when the user has just provided their key and it is not yet saved to config.
 
+## API key setup flow
+
+When the user wants to use this skill for the first time:
+
+**Step 1**: Run `--check` to see if a key is already configured:
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py --check
+python3 {baseDir}/scripts/runninghub.py --check
 ```
 
-React based on the `status` field in the JSON output:
+**Step 2**: React based on the `status` field in the JSON output:
 
-- `"ready"` — All good. Proceed with generation. Shows wallet balance.
-- `"no_key"` — Guide the user:
-  1. Register at https://www.runninghub.cn
-  2. Create API Key: https://www.runninghub.cn/enterprise-api/sharedApi (click "新建")
-  3. Recharge wallet: https://www.runninghub.cn/vip-rights/4
-  4. Configure: `openclaw skills config runninghub RUNNINGHUB_API_KEY <key>`
-- `"no_balance"` — Wallet is empty, guide to recharge: https://www.runninghub.cn/vip-rights/4
-- `"invalid_key"` — Key is invalid, guide to manage keys: https://www.runninghub.cn/enterprise-api/sharedApi
+- `"ready"` — Show a friendly welcome with account info:
+  > Your RunningHub account is ready!
+  > Balance: ¥{balance} | Running tasks: {running_tasks}
+  Then proceed with the user's request.
 
-Do NOT attempt generation until status is `"ready"`.
+- `"no_key"` — Guide the user to get an API key:
+  1. Register/login at https://www.runninghub.cn
+  2. Create API key at https://www.runninghub.cn/enterprise-api/sharedApi (click "新建")
+  3. Recharge wallet at https://www.runninghub.cn/vip-rights/4
+  4. Send the key here, or run: `openclaw skills config runninghub RUNNINGHUB_API_KEY <key>`
 
-## One-time install
+- `"no_balance"` — Tell the user their wallet is empty:
+  > Your API key works, but wallet balance is ¥0. Please recharge at:
+  > https://www.runninghub.cn/vip-rights/4
 
-```bash
-mkdir -p /root/.openclaw/workspace/scripts /root/.openclaw/workspace/data
-cp /data/RHClaw/runninghub/scripts/runninghub.py /root/.openclaw/workspace/scripts/runninghub.py
-cp /data/RHClaw/runninghub/data/capabilities.json /root/.openclaw/workspace/data/capabilities.json
-chmod +x /root/.openclaw/workspace/scripts/runninghub.py
+- `"invalid_key"` — Tell the user the key is invalid:
+  > This API key is invalid or expired. Please check at:
+  > https://www.runninghub.cn/enterprise-api/sharedApi
 
-mkdir -p /root/.openclaw/workspace/skills/runninghub
-cp /data/RHClaw/runninghub/SKILL.md /root/.openclaw/workspace/skills/runninghub/SKILL.md
-```
+**Step 3**: When the user sends their API key (a hex string like `8fa76337b62c...`):
+1. IMMEDIATELY run `--check` with that key to verify it:
+   ```bash
+   python3 {baseDir}/scripts/runninghub.py --check --api-key THE_KEY
+   ```
+2. Show account info based on the result (balance, running tasks).
+3. If status is `"ready"` and balance > 0, tell the user they're all set and ask what they'd like to create.
+4. If balance is 0 or key is invalid, guide accordingly.
+5. Save the key for future use: `openclaw skills config runninghub RUNNINGHUB_API_KEY THE_KEY`
+
+Do NOT attempt any generation until `--check` returns `"ready"` with balance > 0.
 
 ## Execution policy
 
-- When user asks to generate/edit media, run immediately.
-- Do not ask user to set/export API key first — the script resolves it from config.
+- When user asks to generate/edit media, run immediately using the script.
+- ALWAYS include `-o /tmp/rh-output/<descriptive-name>.<ext>` to save the result locally.
 - Do not pass placeholder values like `your_api_key_here`.
 - If the script returns an error JSON, react based on the `error` field (see Error Handling below).
+- After the script completes, look for the `MEDIA:` line in stdout — that is the local file path to send to the user.
 
 ## Quick Routing Table
 
@@ -123,7 +141,7 @@ Use this table to pick the best endpoint for the user's intent. Rank 1 = most po
 ### Text to image
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint rhart-image-n-pro/text-to-image \
   --prompt "a cute puppy playing on green grass, 4K cinematic lighting" \
   --param resolution=2k --param aspectRatio=16:9 \
@@ -133,7 +151,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Image to image (edit)
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint rhart-image-n-pro/edit \
   --prompt "change the background to a cyberpunk city at night" \
   --image /tmp/runninghub-output/puppy.png \
@@ -144,7 +162,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Text to video
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint rhart-video-s/text-to-video \
   --prompt "a puppy running through a meadow, cinematic slow motion" \
   --param duration=10 --param aspectRatio=16:9 \
@@ -154,7 +172,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Image to video
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint rhart-video-s/image-to-video \
   --prompt "the puppy starts running and wagging its tail" \
   --image /tmp/runninghub-output/puppy.png \
@@ -165,7 +183,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Text to speech
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint rhart-audio/text-to-audio/speech-2.8-hd \
   --prompt "Hello! Welcome to RunningHub, your AI creation platform." \
   --param voiceId=male-qn-qingse \
@@ -175,7 +193,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Music generation
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint rhart-audio/text-to-audio/music-2.5 \
   --prompt "upbeat electronic dance music, 128 BPM, energetic" \
   --param lyrics="[Verse 1] Feel the beat..." \
@@ -185,7 +203,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Image to 3D
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint hunyuan3d-v3.1/image-to-3d \
   --image /tmp/runninghub-output/object.png \
   --param enablePbr=true \
@@ -195,7 +213,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Image upscale
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --endpoint topazlabs/image-upscale-standard-v2 \
   --image /tmp/runninghub-output/photo.png \
   --param scale=4x \
@@ -205,7 +223,7 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 ### Auto-select best endpoint (shortcut)
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py \
+python3 {baseDir}/scripts/runninghub.py \
   --task text-to-image \
   --prompt "a beautiful sunset over the ocean" \
   --output /tmp/runninghub-output/sunset.png
@@ -216,20 +234,20 @@ python3 /root/.openclaw/workspace/scripts/runninghub.py \
 List all endpoints:
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py --list
+python3 {baseDir}/scripts/runninghub.py --list
 ```
 
 Filter by type or task:
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py --list --type video
-python3 /root/.openclaw/workspace/scripts/runninghub.py --list --task text-to-image
+python3 {baseDir}/scripts/runninghub.py --list --type video
+python3 {baseDir}/scripts/runninghub.py --list --task text-to-image
 ```
 
 Show endpoint details (parameters, options, defaults):
 
 ```bash
-python3 /root/.openclaw/workspace/scripts/runninghub.py --info rhart-video-s/image-to-video
+python3 {baseDir}/scripts/runninghub.py --info rhart-video-s/image-to-video
 ```
 
 ## Parameter passing
@@ -259,10 +277,21 @@ The script outputs structured JSON errors. React based on the `error` field:
 | `TASK_FAILED` | Generation failed | Show the error message to user |
 | `API_ERROR` | Other API error | Show the error message to user |
 
-## Output format
+## Output handling
 
-- Image/video/audio/3D: prints `MEDIA:/absolute/path` for OpenClaw attachment rendering.
-- Text results (understanding endpoints): prints `TEXT_RESULT:content`.
+The script prints structured output to stdout. Parse it as follows:
+
+### Media results (image/video/audio/3D)
+When you see `MEDIA:/tmp/rh-output/xxx.png` in the script output:
+1. That local file is the generated result — send it as a file attachment to the user.
+2. Do NOT create markdown image links like `![](url)` — the user cannot open RunningHub internal URLs.
+3. If the output is an image, just send the file. The user will see it directly in chat.
+
+### Text results (understanding endpoints)
+When you see `TEXT_RESULT:content`, relay the text content to the user.
+
+### Error results
+When the script outputs JSON with an `"error"` field, see the Error Handling table above.
 
 ## Notes
 
@@ -270,3 +299,4 @@ The script outputs structured JSON errors. React based on the `error` field:
 - Key resolution: `--api-key` flag → `RUNNINGHUB_API_KEY` env → `~/.openclaw/openclaw.json` config.
 - Images < 5MB are sent as base64 data URIs; larger files are uploaded first.
 - The `--task` flag auto-selects the most popular endpoint for that task type.
+- ALWAYS use `-o` to specify output path. Without it, the script saves to `/tmp/runninghub-output/result.<ext>`.

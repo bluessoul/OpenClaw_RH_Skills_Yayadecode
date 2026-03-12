@@ -576,7 +576,7 @@ def cmd_execute(args):
             print(f"Error: no endpoint found for task '{args.task}'", file=sys.stderr)
             print("Use --list to see available tasks.", file=sys.stderr)
             sys.exit(1)
-        print(f"Auto-selected: {endpoint_def['endpoint']} ({endpoint_def.get('name_cn', '')})")
+        print(f"Auto-selected: {endpoint_def['endpoint']} ({endpoint_def.get('name_cn', '')})", file=sys.stderr)
     else:
         print("Error: --endpoint or --task is required", file=sys.stderr)
         sys.exit(1)
@@ -584,7 +584,7 @@ def cmd_execute(args):
     payload = build_payload(endpoint_def, args)
     submit_url = f"{BASE_URL}/{endpoint_def['endpoint']}"
 
-    print(f"Submitting {endpoint_def['task']} to {endpoint_def['endpoint']}...")
+    print(f"Submitting {endpoint_def['task']} to {endpoint_def['endpoint']}...", file=sys.stderr)
     resp = api_post(api_key, submit_url, payload)
     task_id = resp.get("taskId")
     if not task_id:
@@ -618,9 +618,8 @@ def cmd_execute(args):
     if output_type_ext:
         output_path = str(Path(output_path).with_suffix(f".{output_type_ext}"))
 
-    print(f"Downloading {output_type_ext or 'file'} result...")
+    print(f"Downloading result to local file...", file=sys.stderr)
     full_path = download_file(result_url, output_path)
-    print(f"\nSaved: {full_path}")
     print(f"MEDIA:{full_path}")
 
 
