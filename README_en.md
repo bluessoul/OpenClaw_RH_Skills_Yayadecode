@@ -18,11 +18,21 @@ Universal media generation skill for [OpenClaw](https://github.com/openclaw/open
 
 ## Quick Start
 
+### Install
+
 In your OpenClaw chat, say:
 
 > Install the RunningHub skill from https://github.com/HM-RunningHub/OpenClaw_RH_Skills
 
 The assistant will clone the repo, copy files to the workspace, and guide you through API key setup.
+
+### Update
+
+When a new version is available, say in your OpenClaw chat:
+
+> Update from https://github.com/HM-RunningHub/OpenClaw_RH_Skills and re-read @runninghub/SKILL.md
+
+The assistant will pull the latest code and reload the skill config. No need to re-enter your API key.
 
 ### Prerequisites
 
@@ -43,16 +53,18 @@ The assistant automatically selects the best RunningHub endpoint based on your r
 
 ### Video Model Selection
 
-When generating video, the assistant presents 6 curated models to choose from:
+When generating video, the assistant presents 8 curated models to choose from:
 
-> 1. 🚀 **Wan 2.6** — Fast and affordable, best value
-> 2. 🎯 **Kling v3.0 Pro** — Natural motion, best for people
-> 3. 🎬 **RHArt V3.1 Pro** — Cinematic quality
-> 4. ✨ **Vidu Q3 Pro** — Unique stylized look
-> 5. ⭐ **RHArt Sora** — Sora-class engine
-> 6. 🌊 **Hailuo** — Fast with fine details
+> 1. 🚀 **RHArt V3.1 Fast** — Fast with great quality, best value
+> 2. 🔥 **RHArt G** — Grok-powered, incredible imagination
+> 3. 🎯 **Kling v3.0 Pro** — Natural motion, best for people
+> 4. 🎬 **RHArt V3.1 Pro** — Cinematic quality
+> 5. ✨ **Vidu Q3 Pro** — Unique stylized look
+> 6. ⭐ **RHArt Sora** — Sora-class engine
+> 7. 🌊 **Hailuo** — Fast with fine details
+> 8. 🌱 **Seedance v1.5 Pro** — Smooth motion, great for dance
 
-Pick a number to start, or the default (Wan 2.6) is used automatically.
+Pick a number to start, or the default (RHArt V3.1 Fast) is used automatically.
 
 ## Architecture
 
