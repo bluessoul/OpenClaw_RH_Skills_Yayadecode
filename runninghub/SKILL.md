@@ -47,7 +47,29 @@ Example tone (DO NOT follow):
 6. **ALWAYS pass `--api-key` explicitly** when the user has just provided their key and it is not yet saved to config.
 7. **NEVER show endpoint IDs to users** — say model names in Chinese (e.g. "全能视频S"), not technical endpoint strings.
 8. **ALWAYS report cost** — if the script output contains a `COST:` line, you MUST include the cost in your `message` text (e.g. "花了 ¥0.50"). Do not omit it.
-9. **Image-to-video: ALWAYS present model choices FIRST** — When the user wants to turn an image into a video, you MUST show the 6-model selection menu (see "Interactive Model Selection" section) and WAIT for the user to choose BEFORE running any script. Do NOT auto-select a model. Do NOT skip this step. The only exceptions are listed in "When NOT to ask".
+9. **Image-to-video: ALWAYS present model choices FIRST** — When the user wants to turn an image into a video (including "让它动起来", "做成视频", "animate it", "让她跳舞", etc.), you MUST show the following selection menu and WAIT for the user to reply BEFORE running any script. **Do NOT auto-select. Do NOT skip. Do NOT run any video generation script until the user picks a model.**
+
+Your response MUST be exactly this (adapt the first line to context):
+> 这张图要变成视频对吧？我来帮你挑个最合适的模型～
+>
+> 1. 🚀 **万相2.6 Flash** — 我最推荐的！又快又便宜，性价比之王
+> 2. 🎯 **可灵 v3.0 Pro** — 运动特别自然，拍人物选它准没错
+> 3. 🎬 **全能视频V3.1 Pro** — 电影感拉满，适合风景大片
+> 4. ✨ **Vidu Q3 Pro** — 风格化独特，适合创意类短片
+> 5. ⭐ **全能视频S** — Sora 同款引擎效果好，但最近模型负载比较高，可能要多等一会儿
+> 6. 🌊 **海螺 Hailuo** — 速度快画面细腻，适合创意类内容
+>
+> 说个数字就行～ 不选的话我默认用 🚀万相2.6 Flash 哦！
+
+After user replies, map their choice to endpoint:
+- 1 or default → `alibaba/wan-2.6/image-to-video-flash`
+- 2 or "可灵" → `kling-v3.0-pro/image-to-video`
+- 3 or "V3.1" → `rhart-video-v3.1-pro/image-to-video`
+- 4 or "Vidu" → `vidu/image-to-video-q3-pro`
+- 5 or "全能视频S" → `rhart-video-s/image-to-video`
+- 6 or "海螺" → `minimax/hailuo-2.3-fast/image-to-video`
+
+Skip this menu ONLY if: user already named a specific model, or said "跟上次一样" / "再来一个".
 
 ### How to deliver media (IMPORTANT — read carefully)
 
@@ -155,55 +177,9 @@ Do NOT attempt any generation until `--check` returns `"ready"` with balance > 0
 - After the script finishes, use the `message` tool to send the file (see "How to deliver media"). Do not read the image back.
 - After delivering a result, suggest a natural next step (upscale, animate, add audio, edit, etc.).
 
-## Interactive Model Selection
+## Interactive Model Selection — Reference
 
-For **image-to-video** tasks, video generation is expensive and slow. Let the user pick their preferred model before running. Present the top 5 models as a friendly recommendation:
-
-### When to trigger
-
-- User sends/references an image AND asks to make it into a video (or "animate it", "让它动起来", etc.)
-- User explicitly asks for image-to-video
-
-### How to present (follow this template closely)
-
-> 这张图要变成视频对吧？我来帮你挑个最合适的模型～
->
-> 1. 🚀 **万相2.6 Flash** — 我最推荐的！又快又便宜，性价比之王
-> 2. 🎯 **可灵 v3.0 Pro** — 运动特别自然，拍人物选它准没错
-> 3. 🎬 **全能视频V3.1 Pro** — 电影感拉满，适合风景大片
-> 4. ✨ **Vidu Q3 Pro** — 风格化独特，适合创意类短片
-> 5. ⭐ **全能视频S** — Sora 同款引擎效果好，但最近模型负载比较高，可能要多等一会儿
-> 6. 🌊 **海螺 Hailuo** — 速度快画面细腻，适合创意类内容
->
-> 说个数字就行～ 不选的话我默认用 🚀万相2.6 Flash 哦！
-
-### Model mapping
-
-| Choice | Endpoint | Name |
-|--------|----------|------|
-| 1 (default) | `alibaba/wan-2.6/image-to-video-flash` | 万相2.6 Flash |
-| 2 | `kling-v3.0-pro/image-to-video` | 可灵 v3.0 Pro |
-| 3 | `rhart-video-v3.1-pro/image-to-video` | 全能视频V3.1 Pro |
-| 4 | `vidu/image-to-video-q3-pro` | Vidu Q3 Pro |
-| 5 | `rhart-video-s/image-to-video` | 全能视频S |
-| 6 | `minimax/hailuo-2.3-fast/image-to-video` | 海螺 Hailuo |
-
-### Interaction rules
-
-- If user replies with a number (1-6), use that model.
-- If user replies with a model name (even partial, like "可灵" or "海螺" or "万相"), match it.
-- If user says "随便" / "你选" / "默认" / doesn't specify, use choice 1 (万相2.6 Flash).
-- If user says "最快的" / "便宜的" or wants speed/cost, use choice 1 (万相2.6 Flash).
-- If user says "效果最好的" or wants best quality, recommend choice 2 (可灵) or 3 (全能V3.1).
-- If the image contains real people / faces, proactively recommend choice 2 (可灵) and mention it's best for realistic human motion.
-- After the user chooses, confirm briefly and start immediately:
-  > 好嘞，用可灵 v3.0 Pro 来生成！视频生成需要 1-3 分钟，稍等一下哦～ 🎬
-
-### When NOT to ask (skip selection, run immediately)
-
-- User already specified a model name or endpoint in their message.
-- User said "跟上次一样" or similar — reuse the previous model.
-- This is a follow-up regeneration of the same task (user said "再来一个" / "重新生成").
+See **CRITICAL RULE #9** above for the complete image-to-video model selection flow, template, and endpoint mapping. This is enforced as a critical rule to ensure it is never skipped.
 
 ## Quick Routing Table
 
