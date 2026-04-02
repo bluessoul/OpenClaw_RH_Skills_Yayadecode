@@ -7,6 +7,7 @@
 2. 从本地指定文件夹调用图片
 3. 输出图片输出到本地指定文件夹
 修改目标：规避国内大厂的Openclaw版本对话中的cencosrship。
+
 以下为官方skill描述
 
 为 [OpenClaw](https://github.com/openclaw/openclaw) 打造的通用多媒体生成技能，由 [RunningHub](https://www.runninghub.cn) API 驱动。
