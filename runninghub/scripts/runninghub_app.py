@@ -33,7 +33,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 
 sys.path.insert(0, str(SCRIPT_DIR))
 from runninghub import resolve_api_key, require_api_key, cmd_check, poll_task, fix_mov_to_mp4  # noqa: E402
-
+from .duck_decoder import decode_duck_image
 
 # ---------------------------------------------------------------------------
 # HTTP helpers (curl-based, stdlib only)
@@ -442,7 +442,26 @@ def cmd_run(args):
         print(f"Downloading result {i+1}/{len(file_urls)}...", file=sys.stderr)
         full_path = download_file(url, out_path)
         fix_mov_to_mp4(full_path)
-        print(f"OUTPUT_FILE:{full_path}")
+
+        # ================== 【自动小黄鸭解码 - 新增】 ==================
+        # 对下载下来的图片进行解码（支持无密码，密码可后面改）
+        decode_result = decode_duck_image(full_path)   # 如果你的 duck_decoder 是 sync 版，直接这样调用
+
+        if decode_result.get('success'):
+            clean_bytes = decode_result['data']
+            # 自动生成干净文件名（原图是 .png 就变成 _clean.png）
+            clean_path = str(Path(full_path).with_name(
+                Path(full_path).stem + "_clean" + Path(full_path).suffix
+            ))
+            with open(clean_path, 'wb') as f:
+                f.write(clean_bytes)
+            print(f"✅ 已自动解码完成 → {clean_path}", file=sys.stderr)
+            # 让 QClaw 发送的是干净图（保持原有输出机制）
+            print(f"OUTPUT_FILE:{clean_path}")
+        else:
+            print(f"⚠️ 解码失败（可能是普通图片或密码错误），继续发送原图", file=sys.stderr)
+            print(f"OUTPUT_FILE:{full_path}")
+        # ============================================================
 
     if consume_money is not None:
         print(f"COST:¥{consume_money}")
