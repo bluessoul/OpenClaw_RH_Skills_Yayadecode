@@ -22,6 +22,8 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from pathlib import Path
+import glob
 
 API_HOST = "https://www.runninghub.cn"
 APP_LIST_PATH = "/openapi/v2/aiapp/list"
@@ -523,6 +525,12 @@ Examples:
                         help="GPU instance type: default=24G, plus=48G (default: default)")
     parser.add_argument("--output", "-o", help="Output file path")
     parser.add_argument("--api-key", "-k", help="API key (optional, resolved from config)")
+    parser.add_argument("--batch-run", metavar="WEBAPP_LINK", 
+                        help="批量运行指定的 RunningHub AI 应用（支持链接或ID）")
+    parser.add_argument("--input-dir", help="输入文件夹路径（放待处理的图片）")
+    parser.add_argument("--output-dir", help="输出文件夹路径（解码后的干净图保存到这里）")
+    parser.add_argument("--no-chat", action="store_true", 
+                        help="不通过微信消息发图，只保存到 output-dir")
 
     args = parser.parse_args()
 
@@ -536,10 +544,74 @@ Examples:
         cmd_info(api_key, args.info)
     elif args.run:
         cmd_run(args)
+        elif args.batch_run:
+        cmd_batch_run(args)
     else:
         parser.print_help()
         sys.exit(1)
 
-
+def cmd_batch_run(args):
+    """批量处理：输入文件夹里的所有图片 → 用指定 AI 应用依次运行 → 自动解码 → 只保存到本地指定文件夹（不发微信消息）"""
+    api_key = require_api_key(args.api_key)
+    
+    # 支持你直接给 AI 应用的链接或 ID
+    webapp_id = _extract_webapp_id(args.batch_run) or args.batch_run
+    
+    input_dir = Path(args.input_dir)
+    # 强制输出前缀 + 你指定的子文件夹
+    output_base = Path(r"D:\小米云盘\AIoupt")
+    output_dir = output_base / args.output_dir.strip("/").strip("\\")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    if not input_dir.exists():
+        print(f"Error: 输入文件夹不存在: {input_dir}", file=sys.stderr)
+        sys.exit(1)
+    
+    # 获取所有图片
+    image_files = []
+    for ext in ['*.png', '*.jpg', '*.jpeg', '*.webp', '*.bmp']:
+        image_files.extend(glob.glob(str(input_dir / ext)))
+    
+    if not image_files:
+        print("Error: 输入文件夹里没有找到图片", file=sys.stderr)
+        sys.exit(1)
+    
+    print(f"开始批量处理 {len(image_files)} 张图片\nAI应用: {webapp_id}\n输出目录: {output_dir}", file=sys.stderr)
+    
+    for i, img_path in enumerate(image_files, 1):
+        print(f"[{i}/{len(image_files)}] 处理: {Path(img_path).name}", file=sys.stderr)
+        
+        node_list = get_node_info(api_key, webapp_id)
+        # TODO: 把下面这行改成你 AI 应用的实际输入节点（先用 --info 命令看一下节点ID）
+        node_list = apply_modifications(api_key, node_list, None, 
+                                        [f"你的输入节点ID:image={img_path}"])   # ←←← 这里一定要改
+        
+        data = submit_task(api_key, webapp_id, node_list)
+        task_id = str(data["taskId"])
+        
+        final = poll_task(api_key, task_id)
+        results = final.get("results", [])
+        
+        for item in results:
+            url = item.get("url") or item.get("outputUrl")
+            if url:
+                temp_path = str(output_dir / f"temp_{Path(img_path).stem}.png")
+                full_path = download_file(url, temp_path)
+                fix_mov_to_mp4(full_path)
+                
+                decode_result = decode_duck_image(full_path)
+                if decode_result.get('success'):
+                    clean_bytes = decode_result['data']
+                    clean_name = Path(img_path).stem + "_clean" + Path(img_path).suffix
+                    clean_path = str(output_dir / clean_name)
+                    with open(clean_path, 'wb') as f:
+                        f.write(clean_bytes)
+                    print(f"✅ 第 {i} 张完成 → {clean_path}", file=sys.stderr)
+                else:
+                    print(f"⚠️ 第 {i} 张解码失败，已保存原图", file=sys.stderr)
+                    import shutil
+                    shutil.copy(full_path, str(output_dir / Path(img_path).name))
+    
+    print(f"\n🎉 全部处理完成！共 {len(image_files)} 张图片，已全部保存到：{output_dir}", file=sys.stderr)
 if __name__ == "__main__":
     main()
