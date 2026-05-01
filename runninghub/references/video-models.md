@@ -11,11 +11,23 @@
 > 5. ✨ **Vidu Q3 Pro** — 风格化独特，适合创意类短片
 > 6. ⭐ **全能视频S** — Sora 同款引擎效果好，但最近模型负载比较高，可能要多等一会儿
 > 7. 🌊 **海螺 Hailuo** — 速度快画面细腻，适合创意类内容
-> 8. 🌱 **超能视频SD2.0** — 效果超赞！最长15秒+自动配音，适合动画/风景，不适合真人，价格偏高
+> 8. 🌱 **Seedance 2.0** — 效果超赞！最长15秒+自动配音+支持真人，最高4K，价格偏高
 >
 > 说个数字就行～ 不选的话我默认用 🚀全能视频V3.1 Fast 哦！
 
-**Do NOT invent your own model list. Do NOT skip this menu. Use EXACTLY this 8-model list.**
+**⚠️ STRICT RULES — violation will cause bad user experience:**
+1. **Copy-paste** the menu above EXACTLY as-is. Do NOT rewrite, rephrase, rename, or reorder it.
+2. **Do NOT invent your own model list** — NEVER pick models from capabilities.json or endpoint names.
+3. **Do NOT use endpoint names as display names** — users must see "全能视频V3.1 Fast", NOT "rhart-video-v3.1-fast" or "Veo 3.1" or "Wan-2.6".
+4. **Do NOT add models** not in this list (e.g. "万相" is NOT a menu option — it's only used when user explicitly asks for it).
+5. **Do NOT rename "Seedance 2.0"** — never call it "Sparkvideo", "超能视频", or any other alias.
+
+**BAD example (NEVER do this):**
+> 1. 万相 2.6 🌟 — 画质极高  ← ❌ WRONG: 万相 is not in the menu
+> 2. 可灵 Kling 3.0 🚀  ← ❌ WRONG: should be "可灵 v3.0 Pro"
+> 3. Seedance 2.0 (Sparkvideo 2.0) ⚡  ← ❌ WRONG: never show "Sparkvideo"
+
+**GOOD example: copy the menu exactly as defined above.**
 
 After user replies, map choice → endpoint:
 
@@ -46,14 +58,14 @@ After user replies, map choice → endpoint:
 ## Matching Rules
 
 - Number 1-8 → use that model
-- Partial name ("可灵", "海螺", "全能", "万相", "Grok", "Seedance", "超能", "种子") → match
+- Partial name ("可灵", "海螺", "全能", "万相", "Grok", "Seedance", "种子") → match
 - "随便" / "你选" / "默认" → choice 1
 - "最快的" / "便宜的" → choice 1
 - "万相" → use `alibaba/wan-2.6/text-to-video` or `alibaba/wan-2.6/image-to-video-flash`
-- "效果最好的" / "创意最好的" → choice 2 (全能X) or 3 (可灵)
-- "最长的" / "15秒" / "长视频" / "自动配音" → recommend choice 8 (超能视频SD2.0)
+- "效果最好的" / "创意最好的" → choice 2 (全能X) or 3 (可灵) or 8 (Seedance 2.0)
+- "最长的" / "15秒" / "长视频" / "自动配音" / "4K" → recommend choice 8 (Seedance 2.0)
 - "多模态" / "图片+视频" → use multimodal endpoint: `rhart-video/sparkvideo-2.0/multimodal-video`
-- Real people in image → recommend choice 3 (可灵). **NEVER recommend 8 (超能视频SD2.0) for real people.**
+- Real people in image → recommend choice 3 (可灵) or 8 (Seedance 2.0, also supports real people)
 
 Skip menu ONLY if: user named a specific model, or said "跟上次一样" / "再来一个".
 
@@ -71,12 +83,14 @@ Smart defaults (use these if user doesn't specify):
 - Duration: 5s for text-to-video, 5s for image-to-video
 - Aspect ratio: 16:9 (landscape); if user's image is portrait → use 9:16
 
-**超能视频SD2.0 special handling (choice 8):**
-- When user picks 8, warmly mention: "超能视频SD2.0 效果很棒！支持最长 15 秒哦～ 要多长？默认 5 秒"
-- If user's prompt/image involves real people, WARN: "超能视频SD2.0 对真人效果一般，要不要换 🎯可灵 v3.0 Pro？拍人物它最在行！"
-- Extra params: `--param generateAudio=true` (auto-generate audio, on by default), `--param resolution=720p`
+**Seedance 2.0 special handling (choice 8):**
+- When user picks 8, warmly mention: "Seedance 2.0 效果超棒！支持最长 15 秒、自动配音、最高 4K！要多长？默认 5 秒"
+- Supports real people (realPersonMode is ON by default). Good for both real people and animation/landscape.
+- Resolution options: 480p / 720p / 1080p / 2k / 4k. Default 720p. If user wants higher quality: `--param resolution=1080p` or `--param resolution=4k`
+- Extra params: `--param generateAudio=true` (auto-generate audio, on by default)
 - Duration range: 4-15 seconds (broader than other models)
 - If user wants auto audio off: `--param generateAudio=false`
+- If user wants to search web for context: `--param webSearch=true` (text-to-video only)
 
 ## Prompt Optimization
 
